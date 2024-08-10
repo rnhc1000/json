@@ -1,0 +1,45 @@
+db.createCollection("companies", { 
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            title: "Company Details",
+            required: [
+                    "name",
+                    "address",
+                    "business",
+                    "country",
+                    "year",
+                    "revenue"
+                ],
+            properties: {
+                name: {
+                    bsonType: "string",
+                    description: "'name' must be a string or strings"
+                    },
+                address: {
+                    bsonType: "string",
+                    description: "'address'of the company´s HQ"
+                    },
+                business: {
+                    bsonType: "string",
+                    description: "'business' market targeted"
+                    },
+                country: {
+                    bsonType: "string",
+                    description: "'country' must be a short, e.g. USA"
+                    },
+                year: {
+                    bsonType: "int",
+                    description: "'year' must be an integer in [1900,3000]"
+                    },
+                revenue: {
+                    bsonType: [
+                            "double"
+                        ],
+                    description: "'double' revenue last year"
+                    }
+                }
+            }
+        },
+    validationAction: "warn"
+    })"

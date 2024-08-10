@@ -1,0 +1,46 @@
+.sectionOne {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+body {
+
+    margin: 1rem 1rem;' '
+    background-size: cover;
+    background-repeat: no-repeat;
+    background: url('https://images.unsplash.com/40/lUUnN7VGSoWZ3noefeH7_Baker%20Beach-12.jpg?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+}
+
+html {
+    margin: 0 auto;
+}
+
+* {
+    margin: 0 0;
+    box-sizing: border-box;
+}
+
+div {
+    font-style: italic;
+    text-shadow: 2px 2px 4px #000;
+}
+
+div  p {
+    color: red;
+    animation-iteration-count: infinite;
+}
+
+p:child(div) {
+    color:red;
+}
+
+.s {
+    display: flex;
+    justify-content: space-evenly;
+}
+.areaText {
+    margin: 2rem 2rem;
+    width: 400px;
+    height: 200px;
+}
+

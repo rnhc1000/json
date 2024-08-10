@@ -1,0 +1,31 @@
+[
+    {
+        "departureAirport": "IMP",
+        "arrivalAirport": "SPO",
+        "aircraft": "A320-NEO",
+        "distance": 2500,
+        "intercontinental": false
+    },
+    {
+        "departureAirport": "IMP",
+        "arrivalAirport": "POA",
+        "aircraft": "A320-NEO",
+        "distance": 3500,
+        "intercontinental": false
+    },
+    {
+        "departureAirport": "IMP",
+        "arrivalAirport": "FOR",
+        "aircraft": "A320-NEO",
+        "distance": 2000,
+        "intercontinental": false
+    },
+
+    {
+        "departureAirport": "IMP",
+        "arrivalAirport": "BSB",
+        "aircraft": "A320-NEO",
+        "distance": 1000,
+        "intercontinental": false
+    }
+]

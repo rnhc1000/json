@@ -1,0 +1,56 @@
+[
+    {
+        "_id": "bmw",
+        "name": "BMW",
+        "address": "St X, number 7",
+        "business": "auto maker",
+        "country": "Germany",
+        "year": 1917,
+        "revenue": 1000000.0
+    },
+    {
+        "_id": "mbz",
+        "name": "Mercedes-Benz",
+        "address": "St X, number 7",
+        "business": "auto maker",
+        "country": "Germany",
+        "year": 1917,
+        "revenue": 1500000
+    },
+    {
+        "_id": "kwk",
+        "name": "Kawasaki",
+        "address": "St X, number 7",
+        "business": "auto maker",
+        "country": "Japan",
+        "year": 1917,
+        "revenue": 1750000
+    },
+    {
+        "_id": "hnd",
+        "name": "Honda",
+        "address": "St X, number 7",
+        "business": "auto maker",
+        "country": "Japan",
+        "year": 1917,
+        "revenue": 1570000
+    },
+    {
+        "_id": "dct",
+        "name": "Ducati",
+        "address": "St X, number 7",
+        "business": "auto maker",
+        "country": "Italy",
+        "year": 1917,
+        "revenue": 1800000
+    },
+    {
+        "_id": "szk",
+        "name": "Suzuki",
+        "address": "St X, number 7",
+        "business": "auto maker",
+        "country": "JApan",
+        "year": 1917,
+        "revenue": 1800000
+    }
+]

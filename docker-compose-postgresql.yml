@@ -1,0 +1,118 @@
+version: '3.8'
+
+services:
+  db-pg:
+    container_name: db-sonar
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: sonar
+      POSTGRES_USER: sonar
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgresql:/var/lib/postgresql
+      - postgresql_data:/var/lib/postgresql/data
+
+
+  db-tasks:
+    container_name: db-tasks
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: "Postgres2019!"
+    ports:
+      - "15432:5432"
+    volumes:
+      - postgresql_tasks:/var/lib/postgresql
+      - postgresql_data_tasks:/var/lib/postgresql/data
+
+
+  pgadmin:
+    container_name: pg-admin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "rnhc1000@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "PgAdmin2019!"
+    ports:
+      - "16543:80"
+    depends_on:
+      - db-pg
+
+  sonarqube:
+    container_name: sonar
+    image: sonarqube:latest
+    ports:
+      - "9000:9000"
+    environment:
+      SONAR_JDBC_USERNAME: sonar
+      SONAR_JDBC_PASSWORD: sonar
+      SONAR_JDBC_URL: jdbc:postgresql://10.0.0.146:5432/sonar
+    depends_on:
+      - db-pg
+    volumes:
+      - sonarqube_conf:/opt/sonarqube/conf
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_bundled-plugins:/opt/sonarqube/lib/bundled-plugins
+      - sonarqube_logs:/opt/sonarqube/logs
+    ulimits: 
+      nproc: 131072
+      nofile:
+        soft: 8192
+        hard: 131072
+    networks:
+      - sonarnet
+  # wsl -d docker-desktop -u root
+  # sysctl -w  vm.max_map_count=262144
+
+  chrome:
+    image: selenium/node-chrome:4.10.0-20230607
+    container_name: node-chrome
+
+    shm_size: 2gb
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+    networks:
+      - sonarnet
+
+
+  selenium-hub:
+    image: selenium/hub:4.10.0-20230607
+    container_name: selenium-hub
+    ports:
+      - "4442:4442"
+      - "4443:4443"
+      - "4444:4444"
+    networks:
+      - sonarnet
+
+
+  portainer:
+    container_name: portainer
+    image: portainer/portainer-ce
+    ports:
+      - "57757:9000"
+    restart: always
+    environment:
+      TZ: "America/Sao_Paulo"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+networks:
+  sonarnet:
+
+volumes:
+  tmcat:
+    external: true
+  sonarqube_conf:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_bundled-plugins:
+  sonarqube_logs:
+  postgresql:
+  postgresql_data:
+  postgresql_tasks:
+  postgresql_data_tasks:

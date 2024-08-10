@@ -1,0 +1,77 @@
+services:
+  db-pg:
+    container_name: db-pg
+    image: postgres:15-alpine
+    labels:
+      - "servico banco de dados"
+    environment:
+      POSTGRES_PASSWORD: "Postgres2019!"
+    ports:
+      - "15432:5432"
+    volumes:
+      - C:\public\postgreSQL\data:/var/lib/postgresql/data
+    networks:
+      - guacanet
+
+  pgadmin:
+    container_name: pg-admin
+    image: dpage/pgadmin4:latest
+    labels:
+      - "postgresql db web client"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "rnhc1000@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "PgAdmin2019!"
+    ports:
+      - "85:80"
+    depends_on:
+      - db-pg
+    networks:
+      - guacanet
+
+  guacd:
+    tty: true
+    stdin_open: true
+    image: guacamole/guacd:latest
+    container_name: guacd
+    restart: always
+    env_file: .env
+    ports:
+      - 4822:4822
+    networks:
+      - guacanet
+
+  guacamole:
+    tty: true
+    stdin_open: true
+    image: guacamole/guacamole:latest
+    container_name: guacamole
+    restart: always
+    depends_on:
+      - guacd
+      - db-pg
+    env_file: .env
+    ports:
+      - 8085:8080
+    links:
+      - guacd
+    environment:
+      POSTGRES_DATABASE: "${POSTGRES_DATABASE}"
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      POSTGRES_HOSTNAME: "${POSTGRES_HOSTNAME}"
+      POSTGRES_PORT: "${POSTGRES_PORT}"
+      GUACD_HOSTNAME: "${GUACD_HOSTNAME}"
+    networks:
+      - guacanet
+
+  it-tools:
+    image: corentinth/it-tools:latest
+    container_name: it-tools
+    restart: unless-stopped
+    ports: 
+      - 8095:80
+    networks:
+      - guacanet
+
+networks:
+  guacanet:
